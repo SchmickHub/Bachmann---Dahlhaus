@@ -38,16 +38,17 @@ Eine Bug Attack ziehlt auf die fehlerhafte implementierung einer Funktion in Mik
 In den meisten Anwendungen wäre so ein Bug (es gibt noch viele andere weniger bekannte Beispiele) nicht relevant, jedoch bei kryptographischen Anwendunge wie RSA, dem Pohlig-Hellman-Algorithmus (berechnet den diskreten Logarithmus in eine zyklischen Gruppe) oder der ElGamal Verschlüsselung kann eine einzige falsche Berechnung zu den Schlüssel preisgeben. 
 
 ## 8) Differential Fault Analysis (DFA) 
-Ähnlich einer Bug Attack wird hier das Fehlverhalten von Hardware ausgenutzt, jedoch werden keine Fehler der Hersteller oder Ingenieure ausgenutzt, sondern aktiv Fehler von auße hinzugefügt. Angriffsvektoren sind unter anderem: veränderung der Spannung, manipulation der Clock, Strahlung oder ein Resetimpuls zum falschen Zeitpunkt.
-Derselbe Klartext wird dann einmal unter normalen Bedingung und unter Manipulation von außen generiert. Die entstandnen Chiffrentexte werden dann verglichen und Unterschiede in den Bits geben dann Rückschlüsse auf Beispielsweise den Schlüssel.
+Ähnlich einer Bug Attack wird hier das Fehlverhalten von Hardware ausgenutzt, jedoch werden keine Fehler der Hersteller oder Ingenieure ausgenutzt, sondern aktiv Fehler von außen hinzugefügt. Angriffsvektoren sind unter anderem: veränderung der Spannung, manipulation der Systemuhr, Strahlung oder ein Resetimpuls zum falschen Zeitpunkt.
+Derselbe Klartext wird dann einmal unter normalen Bedingung und unter Manipulation von außen verschlüsselt. Die entstandenen Chiffrentexte werden dann verglichen und Unterschiede in den Bits erlauben Rückschlüsse auf Beispielsweise den Schlüssel.
 Eine zerstörung der Hardware ist bei diesem Angriff eine reele Möglichkeit.
 
 ## 8) Sound Analysis
 Eine Analyse der Betriebsgeräuschen (Spuhlenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das kanpp 30 cm von dem Gerät platziert wurde und die entsprechende Software besitzt, ein 4096-bit RSA-Schlüssel extrahiert werden.
 
-## 9) Van-Eck-Phreaking (TEMPEST)
-Die von eine Gerät produzierte Elektormagnetische Strahlung lässt sich noch auf einige Entfernung messen (ca. 100 m) und erlaubt Rückschlüsse auf die durchgeführte Operationen. Besonders hiervon betroffene Geräte sind Computerbildschirme und ungeschirmte Datenleitungen.
-Dieser Fakt kann genutzt werden um Datenverkehr abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche. 
+## 9) Van-Eck-Phreaking (Tempest)
+Die von eine Gerät produzierte Elektormagnetische Strahlung lässt sich noch auf einige Entfernung messen (ca. 100 m) und erlaubt Rückschlüsse auf die durchgeführten Operationen. Besonders hiervon betroffene Geräte sind Computerbildschirme (DVI, HDMI und LCD) und ungeschirmte Datenleitungen.
+Dieser Fakt kann genutzt werden um Datenverkehr abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche.
+Das Wort Tempest (ehemals ein Lauschprogramm der NSA das auf diesen Angriff basierte) steht heute für ein Gütesiegel, das genau genau gegen solche Angriffe schützt.
 
 # Hardware Security Modules (HSM)
 ## Einleitung
@@ -144,6 +145,8 @@ https://blog.f-secure.com/cold-boot-attacks/
 https://de.wikipedia.org/wiki/Kaltstartattacke
 
 https://de.wikipedia.org/wiki/Van-Eck-Phreaking
+
+https://www.heise.de/security/meldung/l-f-Hackerin-demonstiert-Van-Eck-Phreaking-trotz-HDMI-4123699.html
 
 http://www.cs.tau.ac.il/~tromer/acoustic/
 
