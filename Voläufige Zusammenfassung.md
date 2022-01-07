@@ -48,7 +48,7 @@ Eine Analyse der Betriebsgeräuschen (Spuhlenfiepen, Vibration von Bauelementen 
 ## 9) Van-Eck-Phreaking (Tempest)
 Die von eine Gerät produzierte Elektormagnetische Strahlung lässt sich noch auf einige Entfernung messen (ca. 100 m) und erlaubt Rückschlüsse auf die durchgeführten Operationen. Besonders hiervon betroffene Geräte sind Computerbildschirme (DVI, HDMI und LCD) und ungeschirmte Datenleitungen.
 Dieser Fakt kann genutzt werden um Datenverkehr abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche.
-Das Wort Tempest (ehemals ein Lauschprogramm der NSA das auf diesen Angriff basierte) steht heute für ein Gütesiegel, das genau genau gegen solche Angriffe schützt.
+Das Wort Tempest (ehemals ein Lauschprogramm der NSA das auf diesen Angriff basierte) steht heute für ein Gütesiegel, das genau gegen solche Angriffe schützt.
 
 # Hardware Security Modules (HSM)
 ## Einleitung
