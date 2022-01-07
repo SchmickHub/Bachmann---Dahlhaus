@@ -33,7 +33,8 @@ So erhält man Zugriff auf sensible Daten, die die extraktion von kryptographisc
 Sehr punktuelles lautes schreien
 
 ## 7) Bug Attack
-FDIV
+Eine Bug Attack ziehlt auf die fehlerhafte implementierung einer Funktion in Mikroprozessoren ab. Ein prominentes Besipiel hierzu ist der Pentium-Fdiv Bug der im November 1994 entdeckt wurde. Ein Bug in der Gleitkomma-Division bei bestimmten Wertpaaren führte zu ungenauen Ergebnissen.
+In den meisten Anwendungen wäre so ein Bug (es gibt noch viele andere weniger bekannte Beispiele) nicht relevant, jedoch bei kryptographischen Anwendunge wie RSA, dem Pohlig-Hellman-Algorithmus (berechnet den diskreten Logarithmus in eine zyklischen Gruppe) oder der ElGamal Verschlüsselung kann eine einzige falsche Berechnung zu den Schlüssel preisgeben. 
 
 ## 8) Sound Analysis
 Mit machine learning
