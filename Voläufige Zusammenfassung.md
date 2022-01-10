@@ -3,7 +3,7 @@ Vorläufige Zusammenfassung von Mick Dahlhaus und Daniel Bachmann
 
 ## Was sind Seitenkanalangriffe?
 Ein Seitenkanalangriff ist eine Methode der Kryptanalyse (dem Gewinnen von Informationen aus verschlüsselten Texten).
-Hierbei wird nicht das kryptographische Verfahren selbst angegriffen, sondern seine physiche Implementierung auf einem Endgerät, z.B. einer Chipkarte, Security-Token oder einem HSM (siehe unten).
+Hierbei wird nicht das kryptographische Verfahren selbst angegriffen, sondern seine physiche Implementierung auf einem Endgerät, z.B. einer Chipkarte, einem Security-Token oder einem HSM (siehe unten).
 
 ## Ein Auszug möglicher Seitenkanalangriffe
 
@@ -21,39 +21,39 @@ Dieser Angriff, schon 1996 von Paul C. Kocher entdeckt, misst die Rechenzeit des
 Die Veränderungen in der Zeit ermöglichen dann einen Rückschluss (ähnlich SPA und DPA) auf den verwendeten Schlüssel oder die Eingabedaten. 
 
 ### 4) Shared Memory
-Prozesse die auf demselben Gerät durchgeführt werden, teilen sich möglicherweise diesselben Speicherbereiche (einzelne Register, Chache oder ganze Blöcke).
-Hier kann also der benutze Speicher von einem Prozess Rückschluss auf den anderen Prozess ermöglichen oder sogar Zugriff auf sonst beschränkte Daten erlauben. Ein prominentes Beispiel ist die Sicherheitslücke "Spectre", bei dem ausgenutzt wurde das der Prozessor durch "Out-of-order" execution (nach Konditionierung durch häufiges Aufrufen einer bestimmten Speicherzelle), Zugriff auf sonst durch Sicherheitsmechanismen geschützte Daten erlaubte.
+Prozesse die auf demselben Gerät durchgeführt werden, teilen sich möglicherweise diesselben Speicherbereiche (einzelne Register, Cache oder ganze Blöcke).
+Hier kann also der benutzte Speicher von einem Prozess Rückschluss auf den anderen Prozess ermöglichen oder sogar Zugriff auf sonst beschränkte Daten erlauben. Ein prominentes Beispiel ist die Sicherheitslücke "Spectre", bei der ausgenutzt wurde, dass der Prozessor durch "Out-of-order" execution (nach Konditionierung durch häufiges Aufrufen einer bestimmten Speicherzelle) Zugriff auf sonst durch Sicherheitsmechanismen geschützte Daten erlaubte.
 
 ### 5) Cold Boot Attack
-Bei der Cold Boot Attack wird das Phänomen der Datenremanenz ausgenutzt. Ladungen in z.B. RAM-Modulen verflüchtigen sich nicht sofort bei der Systemabschaltung, sondern benötigen teilweise Sekunden bis Minuten um das System vollständig zu verlassen.
+Bei der Cold Boot Attack wird das Phänomen der Datenremanenz ausgenutzt. Ladungen in bspw. RAM-Modulen verflüchtigen sich nicht sofort bei der Systemabschaltung, sondern benötigen teilweise Sekunden bis Minuten um das System vollständig zu verlassen.
 Eine Kühlung der Speichermodule verstärkt diesen Effekt dramatisch.
-So erhält man Zugriff auf sensible Daten, die die extraktion von kryptographischen Schlüsseln ermöglichen.
+So erhält man Zugriff auf sensible Daten, die die Extraktion von kryptographischen Schlüsseln ermöglichen.
 
 ### 6) Electromagnetic Fault Injection (EMFI)
-EMFI versucht geziehlt die Ergbebnisse von Securitychecks zu manipulieren oder sogar ganz zu überspringen. Hierzu wird ein Werkzeug eingesetzt welches das Gerät (sehr punktuell) einer hohen Stromspannung ausetzt. Dies kann persistente änderungen wie Bitflips in Registern provozieren oder aber kurzeitige Fehler bei Abfragen hervorrufen, die dann ein falsches Ergebnis liefern. So können Sicherheitsroutinen, ohne jemals durchgeführt zu werden, umgangen werden.
+EMFI versucht geziehlt, die Ergbebnisse von Securitychecks zu manipulieren oder sogar ganz zu überspringen. Hierzu wird ein Werkzeug eingesetzt welches das Gerät (sehr punktuell) einer hohen Stromspannung ausetzt. Dies kann persistente Änderungen wie Bitflips in Registern provozieren oder aber kurzeitige Fehler bei Abfragen hervorrufen, die dann ein falsches Ergebnis liefern. So können Sicherheitsroutinen, ohne jemals durchgeführt zu werden, umgangen werden.
 
 ### 7) Bug Attack
-Eine Bug Attack ziehlt auf die fehlerhafte implementierung einer Funktion in Mikroprozessoren ab. Ein prominentes Besipiel hierzu ist der Pentium-Fdiv Bug der im November 1994 entdeckt wurde. Ein Bug in der Gleitkomma-Division bei bestimmten Wertpaaren führte zu ungenauen Ergebnissen.
-In den meisten Anwendungen wäre so ein Bug (es gibt noch viele andere weniger bekannte Beispiele) nicht relevant, jedoch bei kryptographischen Anwendunge wie RSA, dem Pohlig-Hellman-Algorithmus (berechnet den diskreten Logarithmus in eine zyklischen Gruppe) oder der ElGamal Verschlüsselung kann eine einzige falsche Berechnung zu den Schlüssel preisgeben. 
+Eine Bug Attack ziehlt auf die fehlerhafte Implementierung einer Funktion in Mikroprozessoren ab. Ein prominentes Besipiel hierzu ist der Pentium-Fdiv Bug der im November 1994 entdeckt wurde. Ein Bug in der Gleitkomma-Division bei bestimmten Wertpaaren führte zu ungenauen Ergebnissen.
+In den meisten Anwendungen wäre ein solcher Bug (es gibt noch viele andere weniger bekannte Beispiele) nicht relevant, jedoch bei kryptographischen Anwendunge wie RSA, dem Pohlig-Hellman-Algorithmus (berechnet den diskreten Logarithmus in eine zyklischen Gruppe) oder der ElGamal Verschlüsselung kann eine einzige falsche Berechnung den Schlüssel preisgeben. 
 
 ### 8) Differential Fault Analysis (DFA) 
-Ähnlich einer Bug Attack wird hier das Fehlverhalten von Hardware ausgenutzt, jedoch werden keine Fehler der Hersteller oder Ingenieure ausgenutzt, sondern aktiv Fehler von außen hinzugefügt. Angriffsvektoren sind unter anderem: veränderung der Spannung, manipulation der Systemuhr, Strahlung oder ein Resetimpuls zum falschen Zeitpunkt.
+Ähnlich einer Bug Attack wird hier das Fehlverhalten von Hardware ausgenutzt, jedoch werden keine Fehler der Hersteller oder Ingenieure ausgenutzt, sondern aktiv Fehler von außen hinzugefügt. Angriffsvektoren sind unter anderem: Veränderung der Spannung, Manipulation der Systemuhr, Strahlung oder ein Resetimpuls zum falschen Zeitpunkt.
 Derselbe Klartext wird dann einmal unter normalen Bedingung und unter Manipulation von außen verschlüsselt. Die entstandenen Chiffrentexte werden dann verglichen und Unterschiede in den Bits erlauben Rückschlüsse auf Beispielsweise den Schlüssel.
-Eine zerstörung der Hardware ist bei diesem Angriff eine reele Möglichkeit.
+Eine Zerstörung der Hardware ist bei diesem Angriff eine reele Möglichkeit.
 
 ### 9) Sound Analysis
-Eine Analyse der Betriebsgeräuschen (Spuhlenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das kanpp 30 cm von dem Gerät platziert wurde und die entsprechende Software besitzt, ein 4096-bit RSA-Schlüssel extrahiert werden.
+Eine Analyse der Betriebsgeräusche (Spuhlenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das knapp 30 cm von dem Gerät entfernt platziert wurde und die entsprechende Software besitzt, ein 4096-bit RSA-Schlüssel extrahiert werden.
 
 ### 10) Van-Eck-Phreaking (Tempest)
-Die von eine Gerät produzierte Elektormagnetische Strahlung lässt sich noch auf einige Entfernung messen (ca. 100 m) und erlaubt Rückschlüsse auf die durchgeführten Operationen. Besonders hiervon betroffene Geräte sind Computerbildschirme (DVI, HDMI und LCD) und ungeschirmte Datenleitungen.
-Dieser Fakt kann genutzt werden um Datenverkehr abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche.
-Das Wort Tempest (ehemals ein Lauschprogramm der NSA das auf diesen Angriff basierte) steht heute für ein Gütesiegel, das genau gegen solche Angriffe schützt.
+Die von einem Gerät produzierte elektromagnetische Strahlung lässt sich noch auf einige Entfernung messen (ca. 100 m) und erlaubt Rückschlüsse auf die durchgeführten Operationen. Besonders hiervon betroffene Geräte sind Computerbildschirme (DVI, HDMI und LCD) und ungeschirmte Datenleitungen.
+Dieses Wissen kann genutzt werden um Datenverkehr abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche.
+Das Wort Tempest (ehemals ein Lauschprogramm der NSA das auf diesem Angriff basierte) steht heute für ein Gütesiegel, das genau gegen solche Angriffe schützt.
 
 # Hardware Security Modules (HSM)
 ## Einleitung
 
 
-Hardware Security Modules (deutsch: Hardware Sicherheitsmodule, HSM) sind Hardware, die kryptographische Operationen in einer sicheren und effizienten Umgebung ermöglicht. Die Kernfunktion eines HSMs besteht in der Erstellung und Verwaltung von Schlüsselmaterial. 
+Hardware Security Modules (deutsch: Hardware Sicherheitsmodule, HSM) sind Hardware, die kryptographische Operationen in einer sicheren und effizienten Umgebung ermöglichen. Die Kernfunktion eines HSMs besteht in der Erstellung und Verwaltung von Schlüsselmaterial. 
 Daraus ergeben sich die Funktionen der symmetrischen und asymmetrischen Ver- und Entschlüsselung, digitale Signaturen, Hash Funktionen und der (True) Random Number Generation.  
 
 Ein HSM tritt üblicherweise in Form einer PCI Karte auf, es gibt jedoch weitere Formen. Das erste HSM wurde 1989 von IBM für militärische Zwecke entwickelt. Anschließend kam es vor allem in ATMs (Automated Teller Machines) zum Einsatz, heutzutage ist es in fast jeder Industrie zu finden.
