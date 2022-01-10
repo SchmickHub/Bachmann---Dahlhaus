@@ -44,81 +44,58 @@ NSA is watching you
 
 # Hardware Security Modules (HSM)
 ## Einleitung
-- deutsch: Hardware Sicherheits Module
-- Hardware, die kryptografische Operationen in einer sicheren und effizienten Umgebung ermöglicht
-- Erstellung und Verwaltung von Schlüsselmaterial
-- Funktionen:
-  + Symmetrische Ver- und Entschlüsselung
-  + Asymetrische Ver- und Entschlüsselung
-  + Signaturen
-  + Hash Funktionen
-  + True/Random Number Generator
-- Standardmäßig als PCI Karte
-- Erstes HSM für militärische Zwecke von IBM entwickelt (1989)
-- Anschließend vor allem für ATMs, heutzutage in fast allen Industrien
+
+Hardware Security Modules (deutsch: Hardware Sicherheitsmodule, HSM) sind Hardware, die kryptographische Operationen in einer sicheren und effizienten Umgebung ermöglicht. Die Kernfunktion eines HSMs besteht in der Erstellung und Verwaltung von Schlüsselmaterial. 
+Daraus ergeben sich die Funktionen der symmetrischen und asymmetrischen Ver- und Entschlüsselung, digitale Signaturen, Hash Funktionen und der (True) Random Number Generation.  
+
+Ein HSM tritt üblicherweise in Form einer PCI Karte auf, es gibt jedoch weitere Formen. Das erste HSM wurde 1989 von IBM für militärische Zwecke entwickelt. Anschließend kam es vor allem in ATMs (Automated Teller Machines) zum Einsatz, heutzutage ist es in fast jeder Industrie zu finden.
+
+## Standards
+
+Es gibt verschiedene Standards, die die nötigen Anforderungen an ein HSM regeln. Der wichtigste Standard ist FIPS 140 - 2 (Federal Information Processing Standards) vom NIST (National Institute of Standards and Technology). Er beschreibt die Sicherheitsanforderungen an ein kryptographisches Modul in vier Leveln mit ansteigenden Anforderungen.  
+In Level 1 wird die korrekte Implementierung der kryptographischen Algorithmen in der Software des HSMs gefordert.  
+In Level 2 müssen physische Angriffe nachweisbar sein.  
+Ein Standard HSM befindet sich in Level 3. Hier muss ein Schutz (Widerstand), die Erkennung und die Reaktion auf Angriffe gewährleistet sein.  
+Fortgeschrittene HSMs erfüllen Level 4. Dafür ist eine Schutz-Ummantelung des kompletten Moduls vorgeschrieben, um Angriffe zu erkennen und darauf zu reagieren. Außerdem muss ein Schutz vor Temperaturen und Spannungen außerhalb des normalen Betriebs vorhanden sein, wodurch Level 4 Module besonders geeignet sind für die Nutzung in einer physisch ungesicherten Umgebung.   
+Weitere anerkannte Standards sind Common Criteria und PCI HSM (Payment Card Industry).
 
 
-##Standards
+## Sicherheit
 
-- Federal Information Processing Standards (FIPS 140 - 2) vom National Institute of Standards and Technology (NIST)
-  + Level 1: Korrekte Implementierung in Software
-  + Level 2: Nachweisbarkeit von Angriffen
-  + Level 3 (Standard HSM): Schutz, Erkennung und Reaktion auf Angriffe
-  + Level 4:
-    + Schutz Ummantelung des kompletten HSMs, um Angriffe zu erkennen und darauf zu reagieren
-    + Schutz vor Temperaturen und Spannungen außerhalb des normalen Betriebs
-    + geeignet für Nutzung in einer physisch ungesicherten Umgebung
-- Außerdem Common Criteria und Payment Card Industry
+### Physische Sicherheit - Schutz vor Angriffen
+Vorab eine Definition: Unter einer Nullstellung (engl. "Zeroisation") versteht man das Löschen von sensiblen Parametern (z.B. Schlüsseln) aus einem kryptographischen Modul, um die Offenlegung zu verhindern.  
+Gegen mögliche Angriffe bietet ein HSM folgende Maßnahmen:
+#### 1) Power Analysis
+Die beim hohen Energieverbrauch entstehenden Stromspitzen werden durch Kondensatoren im HSM abgefangen, wodurch der erhöhte Energieverbrauch nach außen nicht mehr zu erkennen ist.
 
-##Sicherheit
+#### 2) Timing Attack
+Die kryptographischen Algorithmen sind in der Firmware so implementiert, dass die Rechenoperationen eine konstante Dauer haben. Somit führen verschiedene Eingaben zur selben Rechenzeit.
 
-###Physische Sicherheit
-- Nachweisbarkeit von Angriffen: z.B. Siegel auf dem Deckel des HSMs, welches bei physischem Zugang zerstört wird
-- Definition Nullstellung (engl. Zeroisation): Löschen von sensiblen Parametern (Schlüsseln) aus einem kryptographischen Modul, um die Offenlegung zu verhindern
-- Schutz vor Angriffen:
-  + Platine wird mit Vergussmasse aus Harz geschützt
-    + Visueller Schutz gegen Oszilloskop
-    + Bei Entfernung wird die Platine zerstört
-  + Metallkörper, der auf der Platine sitzt und einzelne Komponenten schützt
-- Erkennung und Reaktion auf Angriffe:
-  + Lichtsensor: Kommt Licht an die Platine -> Nullstellung
-  + Deckelschalter: Wurde Schutzkörper entfernt -> Nullstellung
-- Umsetzung der Level 4 Anforderungen:
-  + Ummantelung: Sensorfolie mit verschränkten Leiterbahnen. Wird eine Leiterbahn durchtrennt -> Nullstellung
-  + Angriffe mit Temperatur oder Spannung
-    + Einfrieren der Speichermodule -> interne Ladung wird aufrecht erhalten
-    + Hohe Temperatur oder zu hohe Spannung: Fehlverhalten des HSMs wird wahrscheinlicher
-  + Schutz: Temperatur oder Spannungsversorgung wird gemessen. Zu hohe oder zu niedrige Werte -> Nullstellung
+#### 3) Cold Boot Attack
+Die Temperatur des HSMs wird fortlaufend gemessen. Sinkt die Temperaratur unter einen bestimmten Wert, kommt es zu einer Nullstellung.
 
-###Logische Sicherheit
+#### 4) physischer Zugang
+Ein Angreifer kann auch versuchen, sich direkten Zugang zu den einzelnen Komponenten des HSM zu verschaffen, um diese auswerten zu können. Dazu können spezielle Werkzeuge oder Säure verwendet werden.  
+Ein HSM kann folgende Maßnahmen für einen solchen Angriff bieten: 
+- Ein Siegel auf dem Deckel des HSMs, welches bei physischem Zugang automatisch zerstört wird und somit einen Angriff sichtbar macht
+- Die Platine wird mit einer Vergussmasse aus Harz schützt. Versucht man das Harz zu entfernen, wird die Platine wahrscheinlich zerstört
+- Die Platine kann mit einem Metallkörper geschützt werden, der die einzelnen Komponenten verdeckt. Der Metallkörper kann mit einem Schalter oder einem Lichtsensor kombiniert werden, die eine Nullstellung auslösen, sobald der Metallkörper entfernt wurde, bzw. sobald Licht an die Platine kommt.
+- Das HSM kann mit einer Sensorfolie aus verschränkten Leiterbahnen ummantelt werden. Sobald bei einem Angriff eine Leiterbahn durchtrennt wird, kommt es zur Nullstellung
 
-- Schutz der Serverräume (Zugangskontrollen, etc.)
-- Rollenbasierte Rechte eines HSM-Nutzers (normaler Nutzer vs. Administrator)
-- Strenge Authentifizierung der Nutzer
-  - Chip Karte und Kartenlesegerät mit PIN zu Erzeugung eines temporären Passworts
-  - 2-Faktor-Authentifizierung
-- Strenge Autorisierung von Handlungen
-  - Vier-Augen-Prinzip
-  - M-out-of-N-Autorisierung
-- Regelmäßige Firmware Updates
-- Wofür und wie lange darf ein Schlüssel genutzt werden
-- Sämtliche Kommunikation mit dem HSM muss verschlüsselt stattfinden, damit unverschlüsselte Daten nur im HSM verarbeitet werden
+### Logische Sicherheit
+Um das HSM zusätzlich vor Angriffen zu schützen und diese vor allem zu verhindern, ist logische Sicherheit wichtig. Dazu gehört zum Beispiel der Schutz der Serverräume durch Zugangskontrollen.  
+Außerdem gibt es rollenbasierte Rechte eines HSM-Nutzers. Dabei hat ein normaler HSM Nutzer weniger Rechte als ein Administrator. Jeder Nutzer muss sich einer strengen Authentifizierung unterziehen, dafür kann zum Beispiel eine 2-Faktor-Authentifizierung verwendet werden.  
+Selbst wenn die Authentifizierung erfolgreich war, gibt es noch Sicherheitsmechanismen. So müssen folgenschwere Handlungen (wie das Löschen von Schlüsseln) zum Beispiel von 3 von insgesamt 5 Administratoren (allgemein M-out-of-N-Authorization) bestätigt werden. Hinzu kommen regelmäßige Firmware-Updates und strenge Regeln zur Verwendung der Schlüssel.  
+Wichtig ist außerdem, dass jegliche Kommunikation mit dem HSM verschlüsselt ist, sodass jeglicher unverschlüsselter Inhalt nur im HSM verarbeitet wird.
 
-##Anwendungsbereiche
+## Anwendungsbereiche
 
-###Banken
-- Kontrolle, ob eine eingegebene PIN mit der PIN übereinstimmt, die die Bank für die Karte gespeichert hat
-- Überprüfung von Kredit-/Debitkartentransaktionen durch Kontrolle der Sicherheitscodes der Karten
+### Banken
+Banken verwenden spezielle HSMs, die eigene Standards erfüllen. Mithilfe der HSMs wird zum Beispiel kontrolliert, ob eine eingegebene PIN mit der PIN übereinstimmt, die die Bank für diese Karte gespeichert hat. Außerdem ermöglich ein HSM die sichere Überprüfung von Kredit-/Debitkartentransaktionen durch Kontrolle der Sicherheitscodes der Karten.
 
-###Zertifizierungsstellen
-- X.509 - Zertifizierungsstellen nutzen HSMs zum Generieren, Speichern und Verwalten von asymmetrischen Schlüsselpaaren
-  - elektronische Signaturen
-  - Transport Layer Security (TLS)
+### Zertifizierungsstellen
+Die Zertifizierungsstellen, die z.B. die X.509 Zertifikate austellen, nutzen HSMs zum Generieren, Speichern und Verwalten von asymmetrischen Schlüsselpaaren. Somit können die Zertifikate für elektronische Signaturen, Transport Layer Security (TLS) und Weiteres eingesetzt werden.
 
-###weitere Industrien
-- Militär
-- Automobil
-- Telekommunikation
-- Lotterie
-- etc.
+### weitere Industrien
+Darüber hinaus werden HSMs unter anderem in der Autombil-Industrie, Telekommunikation, Lotterie und im Militär eingesetzt.
 
