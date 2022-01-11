@@ -4,10 +4,10 @@ Zusammenfassung von Mick Dahlhaus und Daniel Bachmann
 ## Was sind Seitenkanalangriffe?
 Ein Seitenkanalangriff ist eine Methode der Kryptanalyse (dem Gewinnen von Informationen aus verschlüsselten Texten ohne den Schlüssel zu besitzen).
 Hierbei wird nicht das kryptographische Verfahren selbst angegriffen, sondern seine physische Implementierung auf einem Endgerät, z.B. einer Chipkarte, einem Security-Token oder einem HSM (siehe unten).
-Bei Seitenkanalangriffen gibt es eine Vielzahl von Agriffsvektoren wie z.B. eine Kamera welche auf das Pineingabefeld gerichtet ist, einem Keylogger der den Klartext direkt bei der Eingabe abfängt oder das aufgeschriebene Passwort was am Bildschirmrand klebt. Im folgenden werden einige nicht-triviale Angriffsvektoren erläutert, welche aber nur den Tellerrand dieses Themas darstellen.
+Bei Seitenkanalangriffen gibt es eine Vielzahl von Agriffsvektoren, wie z.B. eine Kamera welche auf das Pineingabefeld gerichtet ist, einen Keylogger der den Klartext direkt bei der Eingabe abfängt oder das aufgeschriebene Passwort was am Bildschirmrand klebt. Im folgenden werden einige nicht-triviale Angriffsvektoren erläutert, welche aber nur den Tellerrand dieses Themas darstellen.
 
 ## Passive Angriffe
-Ein passiver Angriff stört nicht den Ablauf des kryptographischen Verfahrens und gewinnt meist Informationen aus der Kombination des Ergebnises einer Analyse und Informationen über die jeweilige Eingabe oder Zustands des verwendeten Verfahrens.
+Ein passiver Angriff stört nicht den Ablauf des kryptographischen Verfahrens und gewinnt meist Informationen aus der Kombination des Ergebnisses einer Analyse und Informationen über die jeweilige Eingabe oder Zustand des verwendeten Verfahrens.
 
 ### 1) Simple Power Analysis (SPA)
 Eine einfache Poweranalyse beobachtet den Energieverbrauch der Hardware bei der Ausführung des kryptographischen Verfahrens.
@@ -19,10 +19,10 @@ Square-and-multiply Operationen bei RSA verbrauchen, je nachdem ob sie nur "squa
 Deswegen gibt es bei der DPA auch Möglichkeiten zur Fehlerkorrektur und Signalverarbeitung, was ihr die Fähigkeit verleiht, auch Messungen zu analysieren die für die SPA zu ungenau oder verwaschen sind.
 
 ### 3) Sound Analysis
-Eine Analyse der Betriebsgeräusche (Spuhlenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das knapp 30 cm von dem Gerät entfernt platziert wurde und die entsprechende Software besitzt, ein ansonst sicherer RSA-Schlüssel extrahiert werden.
+Eine Analyse der Betriebsgeräusche (Spuhlenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA, zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das knapp 30 cm von dem Gerät entfernt platziert wurde und die entsprechende Software besitzt, ein ansont sicherer RSA-Schlüssel extrahiert werden.
 
 ### 4) Timing Attack 
-Dieser Angriff, misst die Rechenzeit des implementierten Verfahrens für unterschiedliche Eingaben.
+Dieser Angriff misst die Rechenzeit des implementierten Verfahrens für unterschiedliche Eingaben.
 Die Veränderungen in der Zeit ermöglichen dann einen Rückschluss (ähnlich SPA und DPA) auf den verwendeten Schlüssel oder die Eingabedaten.
 
 ### 5) Van-Eck-Phreaking (Tempest)
@@ -36,23 +36,23 @@ Hier kann also der benutzte Speicher von einem Prozess Rückschluss auf den ande
 
 ### 7) Bug Attack
 Eine Bug Attack ziehlt auf die fehlerhafte Implementierung einer Funktion in Mikroprozessoren ab.
-In den meisten Anwendungen ist ein solcher Bug nicht relevant, jedoch bei kryptographischen Anwendunge wie RSA oder der ElGamal Verschlüsselung kann eine einzige falsche Berechnung den Schlüssel preisgeben.  
+In den meisten Anwendungen ist ein solcher Bug nicht relevant, bei kryptographischen Anwendunge wie RSA oder der ElGamal Verschlüsselung kann jedoch eine einzige falsche Berechnung den Schlüssel preisgeben.  
 
 ## Aktive Angriffe
-Ein aktiver Angriff stört oder manipuliert das Verfahren von außen um so Fehler zu provozieren die Rückschlüsse auf den verwendeten Schlüssel ermöglichen
+Ein aktiver Angriff stört oder manipuliert das Verfahren von außen, um so Fehler zu provozieren, die Rückschlüsse auf den verwendeten Schlüssel ermöglichen.
 
 ### 1) Differential Fault Analysis (DFA) 
 Ähnlich einer Bug Attack wird hier das Fehlverhalten von Hardware ausgenutzt, jedoch werden keine Fehler der Hersteller oder Ingenieure ausgenutzt, sondern aktiv Fehler von außen hinzugefügt. Angriffsvektoren sind unter anderem: Veränderung der Spannung, Manipulation der Systemuhr, Strahlung oder ein Resetimpuls zum falschen Zeitpunkt.
-Derselbe Klartext wird dann einmal unter normalen Bedingung und unter Manipulation von außen verschlüsselt. Die entstandenen Chiffrentexte werden dann verglichen und Unterschiede in den Bits erlauben Rückschlüsse auf Beispielsweise den Schlüssel.
+Derselbe Klartext wird dann einmal unter normalen Bedingung und einmal unter Manipulation von außen verschlüsselt. Die entstandenen Chiffrentexte werden dann verglichen und Unterschiede in den Bits erlauben Rückschlüsse auf bspw. den Schlüssel.
 Eine Zerstörung der Hardware ist bei diesem Angriff eine reele Möglichkeit.
 
 ### 2) Electromagnetic Fault Injection (EMFI)
-EMFI versucht geziehlt, die Ergbebnisse von Securitychecks zu manipulieren oder sogar ganz zu überspringen. Hierzu wird ein Werkzeug eingesetzt welches das Gerät (sehr punktuell) einer hohen Stromspannung aussetzt. Dies kann persistente Änderungen wie Bitflips in Registern provozieren oder aber kurzeitige Fehler bei Abfragen hervorrufen, die dann ein falsches Ergebnis liefern. So können Sicherheitsroutinen, ohne jemals durchgeführt zu werden, umgangen werden.
+EMFI versucht geziehlt, die Ergbebnisse von Securitychecks zu manipulieren oder sogar ganz zu überspringen. Hierzu wird ein Werkzeug eingesetzt, welches das Gerät (sehr punktuell) einer hohen Stromspannung aussetzt. Dies kann persistente Änderungen wie Bitflips in Registern provozieren oder aber kurzeitige Fehler bei Abfragen hervorrufen, die dann ein falsches Ergebnis liefern. So können Sicherheitsroutinen, ohne jemals durchgeführt zu werden, umgangen werden.
 
 ### 3) Cold Boot Attack
 Bei der Cold Boot Attack wird das Phänomen der Datenremanenz ausgenutzt. Ladungen in bspw. RAM-Modulen verflüchtigen sich nicht sofort bei der Systemabschaltung, sondern benötigen teilweise Sekunden bis Minuten um das System vollständig zu verlassen.
 Eine Kühlung der Speichermodule verstärkt diesen Effekt dramatisch.
-Nun muss man sich noch Zugriff auf diese Daten beschaffen, indem man die Speicherelemente aus dem System entfernt oder außliest. Die Analyse dieser so gewonenen Daten kann Rückschlüsse auf den verwendeten Schlüssel ermöglichen.
+Nun muss man sich noch Zugriff auf diese Daten beschaffen, indem man die Speicherelemente aus dem System entfernt oder außliest. Die Analyse dieser so gewonnenen Daten kann Rückschlüsse auf den verwendeten Schlüssel ermöglichen.
 
 # Hardware Security Modules (HSM)
 ## Einleitung
@@ -97,9 +97,9 @@ Ein HSM kann folgende Maßnahmen für einen solchen Angriff bieten:
 - Das HSM kann mit einer Sensorfolie aus verschränkten Leiterbahnen ummantelt werden. Sobald bei einem Angriff eine Leiterbahn durchtrennt wird, kommt es zur Nullstellung
 
 ### Logische Sicherheit
-Um das HSM zusätzlich vor Angriffen zu schützen und diese vor allem zu verhindern, ist logische Sicherheit wichtig. Dazu gehört zum Beispiel der Schutz der Serverräume durch Zugangskontrollen.  
-Außerdem gibt es rollenbasierte Rechte eines HSM-Nutzers. Dabei hat ein normaler HSM Nutzer weniger Rechte als ein Administrator. Jeder Nutzer muss sich einer strengen Authentifizierung unterziehen, dafür kann zum Beispiel eine 2-Faktor-Authentifizierung verwendet werden.  
-Selbst wenn die Authentifizierung erfolgreich war, gibt es noch Sicherheitsmechanismen. So müssen folgenschwere Handlungen (wie das Löschen von Schlüsseln) zum Beispiel von 3 von insgesamt 5 Administratoren (allgemein M-out-of-N-Authorization) bestätigt werden. Hinzu kommen regelmäßige Firmware-Updates und strenge Regeln zur Verwendung der Schlüssel.  
+Um das HSM zusätzlich vor Angriffen zu schützen und diese vor allem zu verhindern, ist logische Sicherheit wichtig. Dazu gehört z.B. der Schutz der Serverräume durch Zugangskontrollen.  
+Außerdem gibt es rollenbasierte Rechte eines HSM-Nutzers. Dabei hat ein normaler HSM Nutzer weniger Rechte als ein Administrator. Jeder Nutzer muss sich einer strengen Authentifizierung unterziehen, dafür kann z.B eine 2-Faktor-Authentifizierung verwendet werden.  
+Selbst wenn die Authentifizierung erfolgreich war, gibt es noch Sicherheitsmechanismen. So müssen folgenschwere Handlungen (wie das Löschen von Schlüsseln) z.B. von 3 von insgesamt 5 Administratoren (allgemein M-out-of-N-Authorization) bestätigt werden. Hinzu kommen regelmäßige Firmware-Updates und strenge Regeln zur Verwendung der Schlüssel.  
 Wichtig ist außerdem, dass jegliche Kommunikation mit dem HSM verschlüsselt ist, sodass jeglicher unverschlüsselter Inhalt nur im HSM verarbeitet wird.
 
 ## Anwendungsbereiche
