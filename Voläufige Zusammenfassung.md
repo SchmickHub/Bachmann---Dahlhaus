@@ -2,9 +2,9 @@
 Zusammenfassung von Mick Dahlhaus und Daniel Bachmann
 
 ## Was sind Seitenkanalangriffe?
-Ein Seitenkanalangriff ist eine Methode der Kryptanalyse (dem Gewinnen von Informationen aus verschlüsselten Texten ohne den Schlüssel zu besitzen).
+Ein Seitenkanalangriff ist eine Methode der Kryptanalyse (dem Gewinnen von Informationen aus verschlüsselten Texten, ohne den Schlüssel zu besitzen).
 Hierbei wird nicht das kryptographische Verfahren selbst angegriffen, sondern seine physische Implementierung auf einem Endgerät, bspw. einer Chipkarte, einem Security-Token oder einem HSM (siehe unten).
-Bei Seitenkanalangriffen gibt es eine Vielzahl von Agriffsvektoren, wie z.B. eine Kamera welche auf das Pineingabefeld gerichtet ist, einen Keylogger der den Klartext direkt bei der Eingabe abfängt oder das aufgeschriebene Passwort was am Bildschirmrand klebt. Im folgenden werden einige nicht-triviale Angriffsvektoren erläutert, welche aber nur den Tellerrand dieses Themas darstellen.
+Bei Seitenkanalangriffen gibt es eine Vielzahl von Angriffsvektoren, wie z.B. eine Kamera welche auf das Pineingabefeld gerichtet ist, einen Keylogger der den Klartext direkt bei der Eingabe abfängt oder das aufgeschriebene Passwort was am Bildschirmrand klebt. Im Folgenden werden einige nicht-triviale Angriffsvektoren erläutert, welche aber nur den Tellerrand dieses Themas darstellen.
 
 ## Passive Angriffe
 Ein passiver Angriff stört nicht den Ablauf des kryptographischen Verfahrens und gewinnt meist Informationen aus der Kombination des Ergebnisses einer Analyse und Informationen über die jeweilige Eingabe oder Zustand des verwendeten Verfahrens.
@@ -15,11 +15,11 @@ Als Beispiel sei hier die Nutzung von RSA gegeben.
 Square-and-multiply Operationen bei RSA verbrauchen, je nachdem ob sie nur "squaren" oder "squaren" und "multiplyen", verschiedene Mengen an Energie. Diese kleinen Unterschiede können schon mit einem handelsüblichen Oszilloskop beobachtet werden und ermöglichen Rückschlüsse auf die Eingabe. 
 
 ### 2) Differential Power Analysis (DPA) 
-Ähnlich wie bei SPA wird hier der Energieverbauch analysiert. Jedoch ist diese Attacke etwas raffinierter und komplexer, da sie eine statistische Analyse über mehrere Schritte des kryptographischen Verfahrens macht.
-Deswegen gibt es bei der DPA auch Möglichkeiten zur Fehlerkorrektur und Signalverarbeitung, was ihr die Fähigkeit verleiht, auch Messungen zu analysieren die für die SPA zu ungenau oder verwaschen sind.
+Ähnlich wie bei SPA wird hier der Energieverbrauch analysiert. Jedoch ist diese Attacke etwas raffinierter und komplexer, da sie eine statistische Analyse über mehrere Schritte des kryptographischen Verfahrens macht.
+Deswegen gibt es bei der DPA auch Möglichkeiten zur Fehlerkorrektur und Signalverarbeitung, was ihr die Fähigkeit verleiht, auch Messungen zu analysieren, die für die SPA zu ungenau oder verwaschen sind.
 
 ### 3) Sound Analysis
-Eine Analyse der Betriebsgeräusche (Spuhlenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA, zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das knapp 30 cm von dem Gerät entfernt platziert wurde und die entsprechende Software besitzt, ein ansont sicherer RSA-Schlüssel extrahiert werden.
+Eine Analyse der Betriebsgeräusche (Spulenfiepen, Vibration von Bauelementen etc.) kann, ähnlich wie bei der SPA, zu Rückschlüssen auf den verwendetet RSA-Schlüssel führen. Hierbei kann schon mit einem handelsüblichen Handymikrofon, das knapp 30 cm von dem Gerät entfernt platziert wurde und die entsprechende Software besitzt, ein ansonten sicherer RSA-Schlüssel extrahiert werden.
 
 ### 4) Timing Attack 
 Dieser Angriff misst die Rechenzeit des implementierten Verfahrens für unterschiedliche Eingaben.
@@ -27,32 +27,32 @@ Die Veränderungen in der Zeit ermöglichen dann einen Rückschluss (ähnlich SP
 
 ### 5) Van-Eck-Phreaking (Tempest)
 Die von einem Gerät produzierte elektromagnetische Strahlung lässt sich noch auf einige Entfernung messen (ca. 100 m) und erlaubt Rückschlüsse auf die durchgeführten Operationen. Besonders hiervon betroffene Geräte sind Computerbildschirme (DVI, HDMI und LCD) und ungeschirmte Datenleitungen.
-Dieses Wissen kann genutzt werden um Datenverkehr am Endgerät abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche.
+Dieses Wissen kann genutzt werden, um Datenverkehr am Endgerät abzuhören. Besonders das Videosignal kann hier effektiv rekonstruiert werden. Aber auch Stromschwankungen bei unterschiedlichen Operationen in Kombination mit einer SPA oder DPA bieten hier eine große Angriffsfläche.
 Das Wort Tempest (ehemals ein Lauschprogramm der NSA) steht heute für ein Gütesiegel, das genau gegen solche Angriffe schützt.
 
 ### 6) Shared Memory
-Prozesse, die auf demselben Gerät durchgeführt werden, teilen sich möglicherweise diesselben Speicherbereiche (einzelne Register, Cache oder ganze Blöcke).
+Prozesse, die auf demselben Gerät durchgeführt werden, teilen sich möglicherweise dieselben Speicherbereiche (einzelne Register, Cache oder ganze Blöcke).
 Hier kann also der benutzte Speicher von einem Prozess Rückschluss auf den anderen Prozess ermöglichen oder sogar Zugriff auf sonst beschränkte Daten erlauben. Ein prominentes Beispiel ist die Sicherheitslücke "Spectre", bei der ausgenutzt wurde, dass der Prozessor durch "Out-of-order" execution (nach Konditionierung durch häufiges Aufrufen einer bestimmten Speicherzelle) Zugriff auf sonst durch Sicherheitsmechanismen geschützte Daten erlaubte.
 
 ### 7) Bug Attack
-Eine Bug Attack ziehlt auf die fehlerhafte Implementierung einer Funktion in Mikroprozessoren ab.
-In den meisten Anwendungen ist ein solcher Bug nicht relevant, bei kryptographischen Anwendunge wie RSA oder der ElGamal Verschlüsselung kann jedoch eine einzige falsche Berechnung den Schlüssel preisgeben.  
+Eine Bug Attack zielt auf die fehlerhafte Implementierung einer Funktion in Mikroprozessoren ab.
+In den meisten Anwendungen ist ein solcher Bug nicht relevant, bei kryptographischen Anwendungen wie RSA oder der ElGamal Verschlüsselung kann jedoch eine einzige falsche Berechnung den Schlüssel preisgeben.  
 
 ## Aktive Angriffe
 Ein aktiver Angriff stört oder manipuliert das Verfahren von außen, um so Fehler zu provozieren, die Rückschlüsse auf den verwendeten Schlüssel ermöglichen.
 
 ### 1) Differential Fault Analysis (DFA) 
 Ähnlich einer Bug Attack wird hier das Fehlverhalten von Hardware ausgenutzt, jedoch werden keine Fehler der Hersteller oder Ingenieure ausgenutzt, sondern aktiv Fehler von außen hinzugefügt. Angriffsvektoren sind unter anderem: Veränderung der Spannung, Manipulation der Systemuhr, Strahlung oder ein Resetimpuls zum falschen Zeitpunkt.
-Derselbe Klartext wird dann einmal unter normalen Bedingung und einmal unter Manipulation von außen verschlüsselt. Die entstandenen Chiffrentexte werden dann verglichen und Unterschiede in den Bits erlauben Rückschlüsse auf bspw. den Schlüssel.
-Eine Zerstörung der Hardware ist bei diesem Angriff eine reele Möglichkeit.
+Derselbe Klartext wird dann einmal unter normalen Bedingungen und einmal unter Manipulation von außen verschlüsselt. Die entstandenen Chiffrentexte werden dann verglichen und Unterschiede in den Bits erlauben Rückschlüsse auf bspw. den Schlüssel.
+Eine Zerstörung der Hardware ist bei diesem Angriff eine reelle Möglichkeit.
 
 ### 2) Electromagnetic Fault Injection (EMFI)
-EMFI versucht geziehlt, die Ergbebnisse von Securitychecks zu manipulieren oder sogar ganz zu überspringen. Hierzu wird ein Werkzeug eingesetzt, welches das Gerät (sehr punktuell) einer hohen Stromspannung aussetzt. Dies kann persistente Änderungen wie Bitflips in Registern provozieren oder aber kurzeitige Fehler bei Abfragen hervorrufen, die dann ein falsches Ergebnis liefern. So können Sicherheitsroutinen, ohne jemals durchgeführt zu werden, umgangen werden.
+EMFI versucht gezielt, die Ergebnisse von Securitychecks zu manipulieren oder sogar ganz zu überspringen. Hierzu wird ein Werkzeug eingesetzt, welches das Gerät (sehr punktuell) einer hohen Stromspannung aussetzt. Dies kann persistente Änderungen wie Bitflips in Registern provozieren oder aber kurzzeitige Fehler bei Abfragen hervorrufen, die dann ein falsches Ergebnis liefern. So können Sicherheitsroutinen, ohne jemals durchgeführt zu werden, umgangen werden.
 
 ### 3) Cold Boot Attack
-Bei der Cold Boot Attack wird das Phänomen der Datenremanenz ausgenutzt. Ladungen in bspw. RAM-Modulen verflüchtigen sich nicht sofort bei der Systemabschaltung, sondern benötigen teilweise Sekunden bis Minuten um das System vollständig zu verlassen.
+Bei der Cold Boot Attack wird das Phänomen der Datenremanenz ausgenutzt. Ladungen in bspw. RAM-Modulen verflüchtigen sich nicht sofort bei der Systemabschaltung, sondern benötigen teilweise Sekunden bis Minuten, um das System vollständig zu verlassen.
 Eine Kühlung der Speichermodule verstärkt diesen Effekt dramatisch.
-Nun muss man sich noch Zugriff auf diese Daten beschaffen, indem man die Speicherelemente aus dem System entfernt oder außliest. Die Analyse dieser so gewonnenen Daten kann Rückschlüsse auf den verwendeten Schlüssel ermöglichen.
+Nun muss man sich noch Zugriff auf diese Daten beschaffen, indem man die Speicherelemente aus dem System entfernt oder ausliest. Die Analyse dieser so gewonnenen Daten kann Rückschlüsse auf den verwendeten Schlüssel ermöglichen.
 
 # Hardware Security Modules (HSM)
 ## Einleitung
