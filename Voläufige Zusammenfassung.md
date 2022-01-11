@@ -3,7 +3,7 @@ Zusammenfassung von Mick Dahlhaus und Daniel Bachmann
 
 ## Was sind Seitenkanalangriffe?
 Ein Seitenkanalangriff ist eine Methode der Kryptanalyse (dem Gewinnen von Informationen aus verschlüsselten Texten ohne den Schlüssel zu besitzen).
-Hierbei wird nicht das kryptographische Verfahren selbst angegriffen, sondern seine physische Implementierung auf einem Endgerät, z.B. einer Chipkarte, einem Security-Token oder einem HSM (siehe unten).
+Hierbei wird nicht das kryptographische Verfahren selbst angegriffen, sondern seine physische Implementierung auf einem Endgerät, bspw. einer Chipkarte, einem Security-Token oder einem HSM (siehe unten).
 Bei Seitenkanalangriffen gibt es eine Vielzahl von Agriffsvektoren, wie z.B. eine Kamera welche auf das Pineingabefeld gerichtet ist, einen Keylogger der den Klartext direkt bei der Eingabe abfängt oder das aufgeschriebene Passwort was am Bildschirmrand klebt. Im folgenden werden einige nicht-triviale Angriffsvektoren erläutert, welche aber nur den Tellerrand dieses Themas darstellen.
 
 ## Passive Angriffe
